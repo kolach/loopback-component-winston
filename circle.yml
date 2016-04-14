@@ -1,0 +1,9 @@
+machine:
+  node:
+    version: 5.7.0
+
+dependencies:
+  cache_directories:
+    - node_modules
+  override:
+    - npm prune && npm install

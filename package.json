@@ -1,0 +1,39 @@
+{
+  "name": "loopback-component-winston",
+  "version": "0.0.1",
+  "description": "Winston logger component for loopback",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "eslint .",
+    "test": "./node_modules/.bin/mocha --timeout 30000 test/**/*test.js",
+    "test:debug": "npm run test -- --debug-brk"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kolach/loopback-component-winston.git"
+  },
+  "keywords": [
+    "loopback",
+    "component",
+    "logger",
+    "winston"
+  ],
+  "author": "Nick Chistyakov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kolach/loopback-component-winston/issues"
+  },
+  "homepage": "https://github.com/kolach/loopback-component-winston#readme",
+  "dependencies": {
+    "winston": "^2.2.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^2.7.0",
+    "eslint-config-defaults": "^9.0.0",
+    "loopback": "^2.27.0",
+    "mocha": "^2.4.5",
+    "sinon": "^1.17.3",
+    "sinon-chai": "^2.8.0"
+  }
+}
