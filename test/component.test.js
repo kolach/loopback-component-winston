@@ -1,37 +1,12 @@
-var loopback = require('loopback');
-var path = require('path');
+var app = {};
 var winston = require('winston');
-
 var should = require('chai').should();
 var spy = require('sinon').spy;
 var stub = require('sinon').stub;
 
-require('./test-transport');
-
-var app = loopback();
-
-app.set('legacyExplorer', false);
-
-var PORT = 3031;
-
 var component = require('../index');
 
 describe('loopback-component-winston', function() {
-
-	var server = null;
-
-	before(function(done) {
-		server = app.listen(PORT, function() {
-			done();
-		});
-	});
-
-	after(function(done) {
-		server.close(done);
-	});
-
-	beforeEach(function() {
-	});
 
 	it('should not throw if transports is not specified', function() {
 		(function() {
@@ -76,7 +51,8 @@ describe('loopback-component-winston', function() {
 		should.not.exist(app.log);
 		component(app, {
 			transports: [
-				{type: 'TestTransport'}
+				{type: 'MockTransport'},
+				{type: 'Console'}
 			]
 		});
 		should.exist(app.log);
@@ -86,7 +62,7 @@ describe('loopback-component-winston', function() {
 		(function() {
 			component(app, {
 				transports: [
-					new winston.transports.TestTransport({})
+					new winston.transports.MockTransport({})
 				]
 			});
 		}).should.not.throw();
@@ -98,7 +74,7 @@ describe('loopback-component-winston', function() {
 		component(app, {
 			name: 'errorLog',
 			transports: [
-				{type: 'TestTransport'}
+				{type: 'MockTransport'}
 			]
 		});
 		should.exist(app.errorLog);
