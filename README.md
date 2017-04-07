@@ -58,3 +58,4 @@ Available options:
 * _level_ [String] log level to report request
 * _msg_ [String] message template
 * _meta_ [Boolean] whether or not to include request/response meta information such as headers, body, query...
+
