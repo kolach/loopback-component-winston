@@ -1,13 +1,13 @@
-var winston = require('winston');
-var Transport = require('winston-transport');
-var util = require('util');
+const winston = require('winston');
+const Transport = require('winston-transport');
+const util = require('util');
 
 function MockTransport(options) {
-	Transport.call(this, options || {});
+  Transport.call(this, options || {});
 };
 
 MockTransport.prototype.log = function(info, callback) {
-	callback();
+  callback();
 };
 
 util.inherits(MockTransport, Transport);
