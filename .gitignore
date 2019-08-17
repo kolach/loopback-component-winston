@@ -41,3 +41,4 @@ node_modules
 
 # Local config files
 *.local.*
+.history

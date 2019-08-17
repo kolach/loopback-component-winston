@@ -1,14 +1,14 @@
 var loopback = require('loopback');
 var request = require('supertest');
 var winston = require('winston');
-var should = require('chai').should();
+var format = winston.format;
 var sinon = require('sinon');
 var spy = sinon.spy;
 var stub = sinon.stub;
 
 
 var component = require('../index');
-var transport = new winston.transports.MockTransport();
+var mockTransport = new winston.transports.MockTransport();
 var products;
 
 // Server startup
@@ -33,8 +33,21 @@ function start(registerMiddleware, done) {
 	// register logger
 	component(app, {
 		transports: [
-			transport,
-			{type: 'Console', colorize: true}
+			mockTransport,
+			{
+				type: 'Console',
+				format: format.colorize({all: true}),
+			},
+			{
+				type: 'Console',
+				format: {
+					timestamp: {},
+					colorize: {all: true},
+					printf: function(info) {
+						return info.timestamp + ' info: ' + info.level + ' message: ' + info.message ;
+					}
+				}
+			}
 		]
 	});
 
@@ -67,7 +80,7 @@ describe('middleware', function() {
 	var app;
 
 	beforeEach(function() {
-		spy(transport, 'log');
+		spy(mockTransport, 'log');
 
 		// Stubbing to always have 1.5ms
 		stub(process, 'hrtime')
@@ -76,7 +89,7 @@ describe('middleware', function() {
 	});
 
 	afterEach(function(done) {
-		transport.log.restore();
+		mockTransport.log.restore();
 		process.hrtime.restore();
 		app.stop(done);
 	});
@@ -101,8 +114,10 @@ describe('middleware', function() {
 				.set('Accept', 'application/json')
 				.expect('Content-Type', /json/)
 				.expect(function() {
-					transport.log.should.be.calledWith(
-						'info', '200 GET 1.50ms /api/products?filter[where][name]=Pear');
+					mockTransport.log.should.be.calledWith({
+						level: 'info',
+						message: '200 GET 1.50ms /api/products?filter[where][name]=Pear',
+					});
 				})
 				.expect(200, done);
 		});
@@ -114,8 +129,10 @@ describe('middleware', function() {
 				.set('Accept', 'application/json')
 				.expect('Content-Type', /json/)
 				.expect(function() {
-					transport.log.should.be.calledWith(
-						'info', '200 POST 1.50ms /api/products');
+					mockTransport.log.should.be.calledWith({
+						level: 'info',
+						message: '200 POST 1.50ms /api/products',
+					});
 				})
 				.expect(200, done);
 		});
@@ -126,8 +143,10 @@ describe('middleware', function() {
 				.set('Accept', 'application/json')
 				.expect('Content-Type', /json/)
 				.expect(function() {
-					transport.log.should.be.calledWith(
-						'info', '200 DELETE 1.50ms /api/products/' + products[0].id);
+					mockTransport.log.should.be.calledWith({
+						level: 'info',
+						message: '200 DELETE 1.50ms /api/products/' + products[0].id,
+					});
 				})
 				.expect(200, done);
 		});
@@ -139,8 +158,10 @@ describe('middleware', function() {
 				.set('Accept', 'application/json')
 				.expect('Content-Type', /json/)
 				.expect(function() {
-					transport.log.should.be.calledWith(
-						'info', '200 PUT 1.50ms /api/products/' + products[0].id);
+					mockTransport.log.should.be.calledWith({
+						level: 'info',
+						message: '200 PUT 1.50ms /api/products/' + products[0].id,
+					});
 				})
 				.expect(200, done);
 		});
