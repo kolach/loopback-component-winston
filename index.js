@@ -1,4 +1,4 @@
-var WinstonComponent = require('./lib/component');
+const WinstonComponent = require('./lib/component');
 
 WinstonComponent.requestLogger = require('./lib/middleware/request-logger');
 WinstonComponent.failureLogger = require('./lib/middleware/failure-logger');

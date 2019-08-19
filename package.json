@@ -4,7 +4,9 @@
   "description": "Winston logger component for loopback",
   "main": "index.js",
   "scripts": {
-    "pretest": "eslint .",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "pretest": "npm run lint",
     "test": "./node_modules/.bin/mocha --timeout 30000 test/**/*test.js",
     "test:debug": "npm run test -- --debug-brk"
   },
@@ -25,17 +27,18 @@
   },
   "homepage": "https://github.com/kolach/loopback-component-winston#readme",
   "dependencies": {
-    "lodash": "^4.11.1",
-    "winston": "^2.2.0"
+    "lodash": "^4.17.15",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "eslint": "^2.7.0",
-    "eslint-config-defaults": "^9.0.0",
-    "loopback": "^2.27.0",
-    "mocha": "^2.4.5",
-    "sinon": "^1.17.3",
-    "sinon-chai": "^2.8.0",
-    "supertest": "^1.2.0"
+    "chai": "^4.2.0",
+    "eslint": "^6.1.0",
+    "eslint-config-google": "^0.13.0",
+    "loopback": "^3.26.0",
+    "mocha": "^6.2.0",
+    "sinon": "^7.4.1",
+    "sinon-chai": "^3.3.0",
+    "supertest": "^4.0.2",
+    "winston-transport": "^4.3.0"
   }
 }

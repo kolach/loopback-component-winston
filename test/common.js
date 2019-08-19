@@ -1,7 +1,6 @@
-'use strict';
 
 require('./mock-transport');
-var chai = require('chai');
-var sinonChai = require('sinon-chai');
+const chai = require('chai');
+const sinonChai = require('sinon-chai');
 
 chai.use(sinonChai);
