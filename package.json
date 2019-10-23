@@ -1,6 +1,6 @@
 {
   "name": "loopback-component-winston",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Winston logger component for loopback",
   "main": "index.js",
   "scripts": {
